@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('tokenable_id');
             $table->string('name');
             $table->string('token', 64)->unique();
-            $table->string('abilities', 65535)->nullable();
+            $table->string('abilities', 255)->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
