@@ -10,11 +10,9 @@
     @vite('resources/css/app.css')
 </head>
 <body class="antialiased">
-    <div class='w-full bg-red-800'>
-        <p class="text-3xl">
-            Sample
-        </p>
-    </div>
+    @livewire('online-listener')
 </body>
     @vite('resources/js/app.js')
+    @livewireScripts
+    <script src="{{asset('js/filament/video/sender.js')}}"></script>
 </html>
