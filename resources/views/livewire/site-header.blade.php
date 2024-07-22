@@ -12,24 +12,24 @@
         </div>
     </div>
     <div class="bg-[#24a263] py-20">
-        <div class="max-w-screen-lg mx-auto flex justify-between items-center px-4">
+        <div class="max-w-screen-lg mx-auto md:flex justify-between items-center px-4">
             <div class="max-w-xl">
-            <h2 class="font-black text-sky-50 text-3xl mb-4">As the leading experts in this field, we're in over 90 countries</h2>
-            <p class="text-base text-sky-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <h2 class="font-black text-sky-50 text-3xl mb-4">As the leading experts in this field, we're in over 90 countries</h2>
+                <p class="text-base text-sky-50 py-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             </div>
             <button class="text-sky-50 uppercase py-3 text-base px-10 border border-sky-50 hover:bg-sky-50 hover:bg-opacity-10">Get started</button>
         </div>
     </div>
     <div class="py-4 relative overflow-hidden bg-white">
         <div class="grid md:grid-cols-2 grid-cols-1 max-w-screen-lg mx-auto">
-            <div class="w-full flex flex-col items-end pr-16">
+            <div class="w-full flex flex-col items-end pr-16 pb-4">
                 <h2 class="text-[#24a263] font-bold text-2xl max-w-xs text-right mb-12 mt-10">Whether you need Assistance</h2>
                 <div class="h-full mt-auto overflow-hidden relative">
-                    <img src="{{asset('images/backgrounds/counseling.png')}}" class="h-full w-full object-contain" alt="">
+                    <img src="{{asset('images/backgrounds/counseling.png')}}" class="h-full w-full object-cover" alt="">
                 </div>
             </div>
             <div class="py-20 bg-slate-100 relative before:absolute before:h-full before:w-screen before:bg-[#24a263] before:top-0 before:left-0">
-                <div class="relative z-20 pl-12">
+                <div class="relative z-20 md:pl-12 px-4">
                     <h2 class="text-[#e7f4ed] font-black text-5xl leading-snug mb-10">Audite is here <br>to help you</h2>
                     <p class="text-white text-sm">
                         Purus in massa tempor nec. Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Faucibus ornare suspendisse sed nisi lacus sed viverra. Diam in arcu cursus euismod quis viverra nibh cras pulvinar.
