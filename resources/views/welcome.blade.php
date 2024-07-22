@@ -10,7 +10,9 @@
     @vite('resources/css/app.css')
 </head>
 <body class="antialiased">
+    @livewire('site-header')
     @livewire('online-listener')
+    @livewire('site-footer')
 </body>
     @vite('resources/js/app.js')
     @livewireScripts

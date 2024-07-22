@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Support\Facades\Storage;
@@ -24,6 +26,7 @@ class User extends Authenticatable implements HasAvatar
         'email',
         'password',
         'avatar_url',
+        'custom_fields',
     ];
 
     /**
@@ -41,12 +44,28 @@ class User extends Authenticatable implements HasAvatar
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'custom_fields' => 'json'
+        ];
+    }
     public function getFilamentAvatarUrl(): ?string
     {
         return $this->avatar_url ? Storage::url($this->avatar_url) : null;
+    }
+
+    function getActiveUsersInLastMinutes(int $minutes)
+    {
+        return DB::table(config('session.table'))
+            ->distinct()
+            ->select(['users.id', 'users.name', 'users.email', 'users.avatar_url', 'users.custom_fields'])
+            ->whereNotNull('user_id')
+            ->where('sessions.last_activity', '>', Carbon::now()->subMinutes($minutes)->getTimestamp())
+            ->leftJoin('users', config('session.table') . '.user_id', '=', 'users.id')
+            ->groupBy('users.id', 'users.name', 'users.email', 'users.avatar_url')
+            ->get();
     }
 }
