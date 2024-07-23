@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('current_video_sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
-            $table->longText('user_peer_connection');
+            $table->longText('user_peer_connection')->nullable();
             $table->string('name', 45)->nullable();
-            $table->longText('guest_peer_connection');
+            $table->longText('guest_peer_connection')->nullable();
             $table->text('remarks');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

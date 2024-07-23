@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('donations', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->string('name', 45)->nullable();
             $table->decimal('amount', 10, 2)->nullable();
