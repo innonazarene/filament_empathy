@@ -56,7 +56,18 @@ class User extends Authenticatable implements HasAvatar
     {
         return $this->avatar_url ? Storage::url($this->avatar_url) : null;
     }
-
+    public function donations()
+    {
+        return $this->hasMany('App\Models\Donation', 'id', 'id');
+    }
+    public function currentVideoSessions()
+    {
+        return $this->hasMany('App\Models\CurrentVideoSession', 'id', 'id');
+    }
+    public function videoSessionLogs()
+    {
+        return $this->hasMany('App\Models\VideoSessionLog', 'id', 'id');
+    }
     function getActiveUsersInLastMinutes(int $minutes)
     {
         return DB::table(config('session.table'))
