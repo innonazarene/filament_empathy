@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Donation extends Model
+{
+    use HasFactory;
+    protected $table = 'donations';
+
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'user_id',
+        'name',
+        'amount',
+        'remarks',
+    ];
+    public $timestamps = true;
+    public $incrementing = true;
+
+}
