@@ -6,7 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }}</title>
-    <style> [x-cloak] { display: none !important; } </style>
     @vite('resources/css/app.css')
 </head>
 <body class="antialiased">
@@ -14,7 +13,6 @@
     @livewire('online-listener')
     @livewire('site-footer')
 </body>
-    @vite('resources/js/app.js')
     @livewireScripts
-    <script src="{{asset('js/filament/video/sender.js')}}"></script>
+    @stack('scripts')
 </html>
