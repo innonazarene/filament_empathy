@@ -10,7 +10,7 @@
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 md:flex md:gap-2 justify-center min-h-32" wire:poll.15s="">
+        <div class="grid grid-cols-1 md:grid-cols-3 md:flex md:gap-2 justify-center min-h-32" wire:poll.15s="updateOnlineUsers()">
             @if (count($onlineUsers) > 0)
                 @foreach ($onlineUsers as $user)
                     <div class="bg-white font-semibold text-center rounded-3xl border shadow-lg p-4 md:min-w-[300px] md:max-w-[300px] min-w-[100%] max-w-[100%]">
@@ -42,11 +42,12 @@
             <div class="flex flex-col h-[400px] md:h-full">
                 <div id="video-call-div" class="w-full h-full">
                     <video id="local-video-guest" class="absolute top-0 left-0 m-2  w-[130px] rounded-lg bg-white" autoplay src=""></video>
-                    <video id="remote-video-guest" class="bg-black w-[300px] h-[300px]" autoplay src=""></video>
+                    <video id="remote-video-guest" class="bg-black w-full h-[300px] md:w-[500px] md:h-[500px]" autoplay src=""></video>
                 </div>
-                <div class="call-action-div absolute left-[30%] md:left-[43%] bottom-[32px]">
-                    <button class="bg-gray-800 p-2 text-white" onclick="muteVideo()">Mute Video</button>
-                    <button class="bg-gray-800 p-2 text-white" onclick="muteAudio()">Mute Audio</button>
+                <div class="call-action-div absolute left-[30%] md:left-[43%] bottom-[32px]" wire:ignore>
+                    <button id="mute-audio-btn" class="bg-gray-800 p-2 text-white" onclick="muteAudio()">Mute Audio</button>
+                    <button id="mute-video-btn" class="bg-gray-800 p-2 text-white" onclick="muteVideo()">Close Video</button>
+                    <button id="mute-video-btn" class="bg-gray-800 p-2 text-white" onclick="exitCall()">Exit</button>
                 </div>
             </div>
         </div>
@@ -59,6 +60,8 @@
         let peerConnection;
         let localStream;
         let remoteStream;
+        let audioMuted = false;
+        let videoMuted = false;
 
         //create signal
         let createSignal = async (id) => {
@@ -82,10 +85,11 @@
 
         let initialize = async () => {
             peerConnection = new RTCPeerConnection();
-            localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
             remoteStream = new MediaStream();
             document.getElementById('local-video-guest').srcObject = localStream;
             document.getElementById('remote-video-guest').srcObject = remoteStream;
+            document.getElementById('local-video-guest').muted = true;
 
             localStream.getTracks().forEach((track) => {
                 peerConnection.addTrack(track, localStream);
@@ -104,9 +108,33 @@
                 let answer = JSON.parse(@this.answer);
                 if (!peerConnection.currentRemoteDescription && process && answer) {
                     await peerConnection.setRemoteDescription(answer);
+                    await @this.call('createVideoSessionLog');
                     process = false;
                 }
-            }, 2000);
+            }, 1000);
+        }
+        // Mute audio
+        let muteAudio = () => {
+            audioMuted = !audioMuted;
+            localStream.getAudioTracks().forEach(track => track.enabled = !audioMuted);
+            document.getElementById('mute-audio-btn').textContent = audioMuted ? 'Unmute Audio' : 'Mute Audio';
+        }
+        // Mute video
+        let muteVideo = () => {
+            videoMuted = !videoMuted;
+            localStream.getVideoTracks().forEach(track => track.enabled = !videoMuted);
+            document.getElementById('mute-video-btn').textContent = videoMuted ? 'Open Video' : 'Close Video';
+        }
+        // Hang up
+        let hangUp = () => {
+            peerConnection.close();
+            localStream.getTracks().forEach(track => track.stop());
+            modal.show = false;
+        }
+        // Exit
+        let exitCall = () => {
+            hangUp();
+            window.location.href = '/';
         }
     </script>
     @endpush

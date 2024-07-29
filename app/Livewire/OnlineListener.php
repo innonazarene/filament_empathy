@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\CurrentVideoSession;
 use App\Models\User;
+use App\Models\VideoSessionLog;
 use Livewire\Component;
 
 class OnlineListener extends Component
@@ -56,11 +57,17 @@ class OnlineListener extends Component
             if(count($userPeerConnection) > 0)
             {
                 $this->answer = $userPeerConnection[0]->user_peer_connection;
-                $this->dispatch('AcceptAnswer');
-                //CurrentVideoSession::where('user_id', $this->user_id)->delete();
             }
         }
-
+    }
+    public function createVideoSessionLog()
+    {
+        VideoSessionLog::create([
+            'user_id' => $this->user_id,
+            'name' => 'Anonymous',
+            'remarks' => 'call',
+        ]);
+        CurrentVideoSession::where('user_id', $this->user_id)->delete();
     }
     public function render()
     {
