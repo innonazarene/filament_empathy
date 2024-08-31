@@ -41,7 +41,7 @@
             <div class="w-full flex flex-col items-end pr-16 pb-4">
                 <h2 class="text-[#24a263] font-bold text-2xl max-w-xs text-right mb-12 mt-10">Whether you need Assistance</h2>
                 <div class="h-full mt-auto overflow-hidden relative">
-                    <img src="{{asset('images/backgrounds/counseling.png')}}" class="h-full w-full object-cover" alt="">
+                    <img src="{{asset('images/other/counseling.png')}}" class="h-full w-full object-cover" alt="">
                 </div>
             </div>
             <div class="py-20 bg-slate-100 relative before:absolute before:h-full before:w-screen before:bg-[#24a263] before:top-0 before:left-0">
