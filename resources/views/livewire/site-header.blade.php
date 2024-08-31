@@ -1,12 +1,37 @@
 <div>
-    <div>
-        <header id="header" class="bg-white w-full transition-all duration-300">
-            <!-- Your header content -->
-            <nav class="container mx-auto p-4">
-                <h1 class="text-xl font-bold">Empathy</h1>
-            </nav>
-        </header>
-    </div>
+    <header id="header" class="bg-white w-full transition-all duration-300 h-100 flex justify-between bg-[rgba(22,34,57,0.95)] text-white tracking-wide">
+        <nav class="container mx-auto p-4 flex justify-between items-center">
+            <p class="text-3xl font-bold ml-4"><span class="text-[#f5a425]">EM</span>PATHY</p>
+            <ul class="flex space-x-2 mr-4">
+                <li>
+                    <a href="#about" class="border-2 border-transparent px-4 py-2 transition-colors duration-300 hover:border-[#f5a425] focus:border-[#f5a425] active:border-[#f5a425]">
+                        ABOUT US
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" class="border-2 border-transparent px-4 py-2 transition-colors duration-300 hover:border-[#f5a425] focus:border-[#f5a425] active:border-[#f5a425]">
+                        CONTACT US
+                    </a>
+                </li>
+                <li>
+                    <a href="#advertisements" class="border-2 border-transparent px-4 py-2 transition-colors duration-300 hover:border-[#f5a425] focus:border-[#f5a425] active:border-[#f5a425]">
+                        ADVERTISEMENT
+                    </a>
+                </li>
+                <li>
+                    <a href="#patrons" class="border-2 border-transparent px-4 py-2 transition-colors duration-300 hover:border-[#f5a425] focus:border-[#f5a425] active:border-[#f5a425]">
+                        PATRONS
+                    </a>
+                </li>
+                <li>
+                    <a href="#listeners" class="border-2 border-transparent px-4 py-2 transition-colors duration-300 hover:border-[#f5a425] focus:border-[#f5a425] active:border-[#f5a425]">
+                        LISTENERS
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="w-full h-screen overflow-hidden relative before:block before:absolute before:bg-black before:h-full before:w-full before:top-0 before:left-0 before:opacity-30">
         <!-- Black Transparent Overlay -->
         <div class="absolute bg-black opacity-30 w-full h-full top-0 left-0"></div>
