@@ -1,12 +1,28 @@
 <div>
-    <div class="w-full h-screen overflow-hidden relative before:block before:absolute before:bg-black before:h-full before:w-full before:top-0 before:left-0 before:z-10 before:opacity-30">
-        <img src="{{asset('images/backgrounds/2.jpg')}}" class="absolute top-0 left-0 min-h-full ob w-full" alt="">
+    <div>
+        <header id="header" class="bg-white w-full transition-all duration-300">
+            <!-- Your header content -->
+            <nav class="container mx-auto p-4">
+                <h1 class="text-xl font-bold">Empathy</h1>
+            </nav>
+        </header>
+    </div>
+    <div class="w-full h-screen overflow-hidden relative before:block before:absolute before:bg-black before:h-full before:w-full before:top-0 before:left-0 before:opacity-30">
+        <!-- Black Transparent Overlay -->
+        <div class="absolute bg-black opacity-30 w-full h-full top-0 left-0"></div>
+        <video autoplay loop muted
+            class="absolute w-auto brightness-50
+            min-w-full min-h-full max-w-none">
+            <source src=
+                "{{asset('video/1.mp4')}}"
+                type="video/mp4"/>
+        </video>
         <div class="relative z-20 max-w-screen-lg mx-auto grid grid-cols-12 h-full items-center px-2">
             <div class="md:col-span-6 col-span-12">
                 <span class="uppercase text-white text-xs font-bold mb-2 block">WE ARE LISTENERS</span>
-                <h1 class="text-white font-extrabold text-5xl mb-8">Audite provides Counseling in different ways</h1>
+                <h1 class="text-white font-extrabold text-5xl mb-8">Emphaty provides Counseling in different ways</h1>
                 <p class="text-stone-100 text-base">
-                    service helps people navigate difficult life situations, such as the death of a loved one, divorce, natural disasters, school stress and the loss of a job
+                    Service helps people navigate difficult life situations, such as the death of a loved one, divorce, natural disasters, school stress, and the loss of a job.
                 </p>
             </div>
         </div>
@@ -30,13 +46,28 @@
             </div>
             <div class="py-20 bg-slate-100 relative before:absolute before:h-full before:w-screen before:bg-[#24a263] before:top-0 before:left-0">
                 <div class="relative z-20 md:pl-12 px-4">
-                    <h2 class="text-[#e7f4ed] font-black text-5xl leading-snug mb-10">Audite is here <br>to help you</h2>
+                    <h2 class="text-[#e7f4ed] font-black text-5xl leading-snug mb-10">Emphaty is here <br>to help you</h2>
                     <p class="text-white text-sm">
                         Purus in massa tempor nec. Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Faucibus ornare suspendisse sed nisi lacus sed viverra. Diam in arcu cursus euismod quis viverra nibh cras pulvinar.
                     </p>
                     <button class="mt-8 text-white uppercase py-3 text-sm px-10 border border-white hover:bg-white hover:bg-opacity-10">Talk with LISTENERS
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('sticky', 'top-0', 'shadow-md', 'z-50');
+            } else {
+                header.classList.remove('sticky', 'top-0', 'shadow-md', 'z-50');
+            }
+        });
+    });
+</script>
+@endpush
