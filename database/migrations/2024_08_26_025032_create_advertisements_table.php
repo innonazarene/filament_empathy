@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('company_information_id')->constrained('company_information')->onDelete('cascade');
             $table->string('ad_title');
+            $table->string('status');
             $table->text('ad_description')->nullable();
             $table->string('ad_image')->nullable();
             $table->timestamps();

@@ -29,6 +29,13 @@ class AdvertisementResource extends Resource
                 Section::make('Advertisement & Descriptions')
                 ->description(false)
                     ->schema([
+                    Forms\Components\Toggle::make('status')
+                        ->onIcon('heroicon-m-bolt')
+                        ->offIcon('heroicon-m-bolt-slash')
+                        ->onColor('success')
+                        ->default(1)
+                        ->required()
+                        ->columnSpanFull(),
                     Forms\Components\TextInput::make('ad_title')
                         ->label('Title')
                         ->helperText('Title of Advertisement')
@@ -59,14 +66,16 @@ class AdvertisementResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('company_information_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('ad_title')
+                    ->label('TITLE')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('ad_description')
+                Tables\Columns\ImageColumn::make('ad_image')
+                    ->label('IMAGES'),
+                Tables\Columns\BooleanColumn::make('status')
+                    ->label('STATUS')
+                    ->falseIcon('heroicon-m-x-circle')
+                    ->trueIcon('heroicon-s-check-circle')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('ad_image'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

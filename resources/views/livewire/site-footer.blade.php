@@ -1,4 +1,4 @@
-<footer class="bg-gradient-to-r from-gray-100 via-[#a8f0de] to-gray-100 mt-12">
+<footer class="bg-gradient-to-r from-gray-100 via-[hsla(219,16%,76%,1)] to-gray-100 mt-12">
     <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div>

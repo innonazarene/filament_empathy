@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Advertisement extends Model
 {
     use HasFactory;
-    protected $fillable = ['company_information_id', 'ad_title', 'ad_description', 'ad_image'];
+    protected $fillable = ['company_information_id', 'ad_title', 'ad_description', 'ad_image', 'status'];
     protected $casts = [
-        'ad_image'=> 'array'
+        'ad_image'=> 'array',
+        'status'=> 'boolean',
     ];
     public function company()
     {
