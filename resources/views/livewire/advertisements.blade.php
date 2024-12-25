@@ -4,41 +4,19 @@
             Advertisements & Sponsors
         </p>
     </div>
-    <div class="p-2 grid grid-rows-1 gap-5 ">
-        <div class="w-full relative cursor-pointer text-white">
-            <div class="absolute bottom-5 pl-5">
-                <p class="text-lg">Advertise Name</p>
-                <p>{{ substr("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 0, 50) }}</p>
-            </div>
-            <img class="w-full h-full object-cover" src="https://media.geeksforgeeks.org/wp-content/uploads/20240215121528/javare15.png" alt="Img 1" id="img1" />
-        </div>
-        <div class="w-full relative cursor-pointer text-white">
-            <div class="absolute bottom-5 pl-5">
-                <p class="text-lg">Advertise Name</p>
-                <p>{{ substr("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 0, 50) }}</p>
-            </div>
-            <img class="w-full h-full object-cover" src="https://media.geeksforgeeks.org/wp-content/uploads/20240215121528/javare15.png" alt="Img 1" id="img1" />
-        </div>
-        <div class="w-full relative cursor-pointer text-white">
-            <div class="absolute bottom-5 pl-5">
-                <p class="text-lg">Advertise Name</p>
-                <p>{{ substr("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 0, 50) }}</p>
-            </div>
-            <img class="w-full h-full object-cover" src="https://media.geeksforgeeks.org/wp-content/uploads/20240215121528/javare15.png" alt="Img 1" id="img1" />
-        </div>
-        <div class="w-full relative cursor-pointer text-white">
-            <div class="absolute bottom-5 pl-5">
-                <p class="text-lg">Advertise Name</p>
-                <p>{{ substr("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 0, 50) }}</p>
-            </div>
-            <img class="w-full h-full object-cover" src="https://media.geeksforgeeks.org/wp-content/uploads/20240215121528/javare15.png" alt="Img 1" id="img1" />
-        </div>
-        <div class="w-full relative cursor-pointer text-white">
-            <div class="absolute bottom-5 pl-5">
-                <p class="text-lg">Advertise Name</p>
-                <p>{{ substr("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 0, 50) }}</p>
-            </div>
-            <img class="w-full h-full object-cover" src="https://media.geeksforgeeks.org/wp-content/uploads/20240215121528/javare15.png" alt="Img 1" id="img1" />
-        </div>
+    <div class="p-2 grid grid-rows-1 gap-5 text-center">
+            @forelse ($advertisements as $item)
+                <div class="w-full relative cursor-pointer text-white">
+                    <div class="absolute bottom-5 pl-5">
+                        <p class="text-lg">{{ $item->ad_title ?? "no-title" }} </p>
+                        <p>{{ substr($item->ad_description ?? "", 0, 50) }}</p>
+                    </div>
+                    @if($item->ad_image)
+                        <img class="w-full h-[220px] object-cover" src="{{ url('/storage/'.$item->ad_image[0]) }}" alt="Img 1" id="img1" />
+                    @endif
+                </div>
+            @empty
+                <p class="text-center">NO DATA</p>
+            @endforelse
     </div>
 </div>
