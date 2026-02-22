@@ -2,81 +2,89 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
-use Laravel\Sanctum\HasApiTokens;
-use Filament\Models\Contracts\HasAvatar;
-use Illuminate\Support\Facades\Storage;
 
-class User extends Authenticatable implements HasAvatar
+class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'avatar_url',
-        'custom_fields',
+        'role',
+        'status',
+        'bio',
+        'avatar',
+        'balance',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'custom_fields' => 'json'
+            'balance' => 'decimal:2',
         ];
     }
-    public function getFilamentAvatarUrl(): ?string
+
+    // Role helpers
+    public function isAdmin(): bool
     {
-        return $this->avatar_url ? Storage::url($this->avatar_url) : null;
+        return $this->role === 'admin';
     }
-    public function donations()
+
+    public function isListener(): bool
     {
-        return $this->hasMany('App\Models\Donation', 'id', 'id');
+        return $this->role === 'listener';
     }
-    public function currentVideoSessions()
+
+    public function isCaller(): bool
     {
-        return $this->hasMany('App\Models\CurrentVideoSession', 'id', 'id');
+        return $this->role === 'caller';
     }
-    public function videoSessionLogs()
+
+    public function isOnline(): bool
     {
-        return $this->hasMany('App\Models\VideoSessionLog', 'id', 'id');
+        return $this->status === 'online';
     }
-    function getActiveUsersInLastMinutes(int $minutes)
+
+    // Relationships
+    public function callsAsCaller(): HasMany
     {
-        return DB::table(config('session.table'))
-            ->distinct()
-            ->select(['users.id', 'users.name', 'users.email', 'users.avatar_url', 'users.custom_fields'])
-            ->whereNotNull('user_id')
-            ->where('sessions.last_activity', '>', Carbon::now()->subMinutes($minutes)->getTimestamp())
-            ->leftJoin('users', config('session.table') . '.user_id', '=', 'users.id')
-            ->groupBy('users.id', 'users.name', 'users.email', 'users.avatar_url')
-            ->get();
+        return $this->hasMany(Call::class, 'caller_id');
+    }
+
+    public function callsAsListener(): HasMany
+    {
+        return $this->hasMany(Call::class, 'listener_id');
+    }
+
+    public function donationsGiven(): HasMany
+    {
+        return $this->hasMany(Donation::class, 'caller_id');
+    }
+
+    public function donationsReceived(): HasMany
+    {
+        return $this->hasMany(Donation::class, 'listener_id');
+    }
+
+    public function getAvatarUrlAttribute(): string
+    {
+        if ($this->avatar) {
+            return asset('storage/' . $this->avatar);
+        }
+        $initial = urlencode(substr($this->name, 0, 1));
+        return "https://ui-avatars.com/api/?name={$initial}&background=7c3aed&color=fff&size=128";
     }
 }
