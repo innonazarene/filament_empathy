@@ -13,11 +13,22 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin'       => Route::has('login'),
-        'canRegister'    => Route::has('register'),
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
-        'phpVersion'     => PHP_VERSION,
+        'phpVersion' => PHP_VERSION,
     ]);
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        $user = auth()->user();
+        return match ($user->role) {
+            'admin' => redirect()->route('admin.dashboard'),
+            'listener' => redirect()->route('listener.dashboard'),
+            default => redirect()->route('listeners.index'),
+        };
+    })->name('dashboard');
 });
 
 // Caller routes

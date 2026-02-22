@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 export default defineConfig({
     plugins: [
@@ -16,5 +17,16 @@ export default defineConfig({
                 },
             },
         }),
+        nodePolyfills({
+            include: ['events', 'util', 'stream', 'process'],
+            globals: {
+                Buffer: true,
+                global: true,
+                process: true,
+            },
+        }),
     ],
+    define: {
+        global: 'window',
+    },
 });
