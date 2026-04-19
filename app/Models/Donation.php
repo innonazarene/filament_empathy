@@ -4,20 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Donation extends Model
 {
     use HasFactory;
-    protected $table = 'donations';
 
-    protected $primaryKey = 'id';
     protected $fillable = [
-        'user_id',
-        'name',
+        'call_id',
+        'caller_id',
+        'listener_id',
         'amount',
-        'remarks',
+        'message',
     ];
-    public $timestamps = true;
-    public $incrementing = true;
 
+    protected $casts = [
+        'amount' => 'decimal:2',
+    ];
+
+    public function call(): BelongsTo
+    {
+        return $this->belongsTo(Call::class);
+    }
+
+    public function caller(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'caller_id');
+    }
+
+    public function listener(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'listener_id');
+    }
 }
