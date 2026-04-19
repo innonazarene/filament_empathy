@@ -1,14 +1,32 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import vue from '@vitejs/plugin-vue';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css',
-                    'resources/js/app.js',
-                    `resources/css/filament/admin/theme.css`
-                    ],
+            input: 'resources/js/app.js',
             refresh: true,
         }),
+        vue({
+            template: {
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
+            },
+        }),
+        nodePolyfills({
+            include: ['events', 'util', 'stream', 'process'],
+            globals: {
+                Buffer: true,
+                global: true,
+                process: true,
+            },
+        }),
     ],
+    define: {
+        global: 'window',
+    },
 });

@@ -1,46 +1,70 @@
-# Prism
-**Prism** is a (FREE) command-line tool for initializing all tasks required for building a Laravel-based backend application. The tool performs various tasks, including database migration, seeding, creating models, routes, and controllers based on the database defined in the **.env** file.
+# Clinic Health Monitoring System
 
-## Installation
+A comprehensive web-based application designed to manage and monitor clinic operations efficiently. This system provides role-based access for different users, including Super Admins, Disbursement Officers, Budget Monitoring Officers, and Auditors.
 
-To install **Prism**, follow these steps:
+## Features
 
-1.  Clone the repository or download the source code.
-2.  Run `composer install` to install the required dependencies.
-3.  Copy the `.env.example` file and rename it to `.env`. Then, update the file with your database credentials.
-4.  Run the `php artisan prism:init` command to initialize the backend.
+- **Role-Based Access Control (RBAC):** Secure login and personalized dashboards based on user roles.
+- **Student & Personnel Management:** Detailed profiles, including automatic BMI calculation and allergy tracking.
+- **Medicine Logbook:** Track medicine inventory, dispensing, and reorder levels.
+- **Treatment Records:** Maintain detailed logs of common illnesses and treatments provided.
+- **Department Organization:** Manage records categorized by specific departments.
+- **Offline Capabilities:** Designed to sync data and queue forms even when an internet connection is unavailable.
+- **Two-Factor Authentication (2FA):** Enhanced security via email OTP during login.
 
-## Usage
+## Tech Stack
 
-To use **Prism**, run the following command:
+- **Backend:** [Laravel](https://laravel.com/) (PHP Framework)
+- **Frontend:** [Vue.js](https://vuejs.org/) with [Inertia.js](https://inertiajs.com/)
+- **Database:** MySQL
+- **Styling:** CSS
+- **Local Environment:** Laragon
 
-Copy code
+## Setup Instructions
 
-`php artisan prism:init`
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   ```
 
-This will initialize all the required tasks for building a Laravel-based backend, including database migration, seeding, creating models, routes, and controllers.
+2. **Navigate to the project directory:**
+   ```bash
+   cd filament_empathy
+   ```
 
-## Configuration
+3. **Install PHP dependencies:**
+   ```bash
+   composer install
+   ```
 
-**Prism** uses the following configuration options:
+4. **Install Node.js dependencies:**
+   ```bash
+   npm install
+   ```
 
--   `$packages`: An array of packages that the tool will check for and install if they are not already installed.
+5. **Set up your environment variables:**
+   Copy the `.env.example` file to `.env` and configure your database and email SMTP settings.
+   ```bash
+   cp .env.example .env
+   ```
 
+6. **Generate application key:**
+   ```bash
+   php artisan key:generate
+   ```
 
-## Contributing
+7. **Run database migrations and seeders:**
+   ```bash
+   php artisan migrate --seed
+   ```
 
-If you want to contribute to this project, feel free to submit a pull request or open an issue.
+8. **Build frontend assets:**
+   ```bash
+   npm run build
+   ```
 
+9. **Serve the application:**
+   If using **Laragon**, ensure Laragon is running and visit `http://filament_empathy.test` in your browser.
 
-## Packages
-
-|Package List| Github|
-|--|--|
-| Krlove Eloquent-Model-Generator|  **https://github.com/krlove/eloquent-model-generator**|
-| kitloong Laravel-Migration-Generator|  **https://github.com/kitloong/laravel-migrations-generator**|
-| orangehill/iseed|  **https://github.com/orangehill/iseed**|
-
-
-## License
-
-This Prism is open-sourced software licensed under  [MIT license](https://opensource.org/licenses/MIT).
+## Themes
+The system UI incorporates the official organization colors: **Navy Blue** and **Mustard Yellow**.
